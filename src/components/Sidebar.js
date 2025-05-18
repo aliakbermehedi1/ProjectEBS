@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHome, FaCog, FaChevronDown, FaUser, FaFile } from "react-icons/fa"; // Example icons
+import { FaHome, FaCog, FaChevronDown, FaUser, FaFile } from "react-icons/fa";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
   const [menuOpen, setMenuOpen] = useState(null);
@@ -10,18 +10,18 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
   return (
     <div
-      className={`flex flex-col h-screen bg-white text-black transition-all duration-300 ${
-        collapsed ? "w-0 opacity-0" : "w-64 opacity-100"
-      }`} // Sidebar width and opacity change
+      className={`flex flex-col h-screen bg-white text-black transition-all duration-300  w-64 ${
+        collapsed ? "pointer-events-none" : "pointer-events-auto"
+      }`}
       style={{
-        transform: collapsed ? "translateX(-200%)" : "translateX(0)", // Move the sidebar further off-screen
-        position: "fixed", // Sidebar fixed on the left side of the screen
-        top: 72, // Start from below the topbar (height of the top bar)
-        left: 0, // Align it to the left
-        zIndex: 100, // Ensure it's above other content
+        transform: collapsed ? "translateX(-100%)" : "translateX(0)",
+        opacity: collapsed ? 0 : 1,
+        position: "fixed",
+        top: 72,
+        left: 0,
+        zIndex: 100,
       }}
     >
-      {/* Menu Items */}
       <div className="flex flex-col mt-4">
         {["Admin", "Human Resource", "Inventory", "Procurement"].map(
           (item, index) => (
@@ -42,30 +42,22 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                   <FaFile className="inline-block mr-2" />
                 )}
 
-                {/* Text */}
-                <span
-                  className={`transition-all duration-300 ${
-                    collapsed ? "hidden" : "block"
-                  }`}
-                >
-                  {item}
-                </span>
+                {/* Text - Removed conditional visibility */}
+                <span className="transition-all duration-300">{item}</span>
 
-                {/* Expand Icon */}
                 <FaChevronDown
-                  className={`ml-auto transition-all duration-300 ${
+                  className={`ml-auto transition-transform duration-300 ${
                     menuOpen === index ? "rotate-180" : ""
                   }`}
                 />
               </div>
 
-              {/* Submenu */}
               {menuOpen === index && !collapsed && (
                 <div className="pl-6 transition-all duration-300">
                   {["Submenu 1", "Submenu 2"].map((submenu, subIndex) => (
                     <div
                       key={subIndex}
-                      className="p-4 text-sm hover:bg-[#F3F4F5] cursor-pointer transition-all duration-300"
+                      className="p-4 text-sm hover:bg-[#F3F4F5] cursor-pointer"
                     >
                       {submenu}
                     </div>
